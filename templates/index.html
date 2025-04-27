@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen">
+    <div class="bg-blue-600 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl font-bold mb-4">Your Health, Our Priority</h1>
+            <p class="text-xl mb-8">Find the perfect healthcare plan tailored just for you</p>
+            <div class="flex justify-center space-x-6">
+                <a href="/plans" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-100">
+                    View All Plans
+                </a>
+                <a href="/health-form" class="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-400">
+                    Get Personalized Plan
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose SwasthSathi?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="text-4xl mb-4">💰</div>
+                    <h3 class="text-xl font-semibold mb-2">Free Consultation</h3>
+                    <p>Get expert recommendations without any consultation fees</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="text-xl font-semibold mb-2">Personalized Plans</h3>
+                    <p>AI-powered recommendations based on your unique health profile</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="text-4xl mb-4">🕒</div>
+                    <h3 class="text-xl font-semibold mb-2">24/7 Support</h3>
+                    <p>Round-the-clock assistance for all your queries</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-12">What Our Users Say</h2>
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <button onclick="prevTestimonial()" class="text-blue-600 hover:text-blue-800">
+                        ← Previous
+                    </button>
+                    <button onclick="nextTestimonial()" class="text-blue-600 hover:text-blue-800">
+                        Next →
+                    </button>
+                </div>
+                <div id="testimonial-container" class="text-center">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+        <div class="max-w-3xl mx-auto">
+            <div class="space-y-4" id="faq-container">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const testimonials = [
+    {
+        name: "Rajesh Kumar",
+        age: 45,
+        city: "Mumbai",
+        message: "SwasthSathi helped me find the perfect family health plan within my budget. The recommendations were spot-on!"
+    },
+    {
+        name: "Priya Sharma",
+        age: 32,
+        city: "Delhi",
+        message: "The personalized approach made it so easy to understand different health plans. Excellent service!"
+    },
+    {
+        name: "Amit Patel",
+        age: 38,
+        city: "Bangalore",
+        message: "I was confused about health insurance, but SwasthSathi's AI recommendations made the decision simple."
+    },
+    {
+        name: "Meera Reddy",
+        age: 29,
+        city: "Hyderabad",
+        message: "Great platform! The form was comprehensive and the suggested plans matched my requirements perfectly."
+    },
+    {
+        name: "Suresh Iyer",
+        age: 52,
+        city: "Chennai",
+        message: "The best part was how they considered my pre-existing conditions while recommending plans. Very thoughtful!"
+    }
+];
+
+const faqs = [
+    {
+        question: "How does SwasthSathi recommend health plans?",
+        answer: "We use advanced AI algorithms to analyze your health profile, requirements, and budget to suggest the most suitable health insurance plans."
+    },
+    {
+        question: "Is my health information secure?",
+        answer: "Yes, we follow strict privacy protocols and encrypt all personal health information to ensure complete confidentiality."
+    },
+    {
+        question: "Can I modify my health profile later?",
+        answer: "Yes, you can update your health profile anytime through your dashboard, and get new plan recommendations."
+    },
+    {
+        question: "How accurate are the plan recommendations?",
+        answer: "Our AI model considers multiple factors and provides recommendations with a confidence score. We regularly update our model for better accuracy."
+    }
+];
+
+let currentTestimonialIndex = 0;
+
+function showTestimonial(index) {
+    const testimonial = testimonials[index];
+    const container = document.getElementById('testimonial-container');
+    
+    container.innerHTML = `
+        <div class="testimonial-content">
+            <p class="text-lg italic mb-6">"${testimonial.message}"</p>
+            <p class="font-semibold text-gray-900">${testimonial.name}, ${testimonial.age}</p>
+            <p class="text-gray-600">${testimonial.city}</p>
+        </div>
+    `;
+}
+
+function nextTestimonial() {
+    currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+    showTestimonial(currentTestimonialIndex);
+}
+
+function prevTestimonial() {
+    currentTestimonialIndex = (currentTestimonialIndex - 1 + testimonials.length) % testimonials.length;
+    showTestimonial(currentTestimonialIndex);
+}
+
+function initializeFAQs() {
+    const container = document.getElementById('faq-container');
+    
+    faqs.forEach(faq => {
+        const faqElement = document.createElement('div');
+        faqElement.className = 'bg-gray-50 rounded-lg p-4';
+        faqElement.innerHTML = `
+            <button class="w-full text-left font-semibold flex justify-between items-center">
+                <span>${faq.question}</span>
+                <span class="transform transition-transform duration-200">▼</span>
+            </button>
+            <div class="mt-4 text-gray-600 hidden">
+                ${faq.answer}
+            </div>
+        `;
+        
+        const button = faqElement.querySelector('button');
+        const answer = faqElement.querySelector('div');
+        const arrow = faqElement.querySelector('span:last-child');
+        
+        button.addEventListener('click', () => {
+            answer.classList.toggle('hidden');
+            arrow.style.transform = answer.classList.contains('hidden') ? '' : 'rotate(180deg)';
+        });
+        
+        container.appendChild(faqElement);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    showTestimonial(0);
+    initializeFAQs();
+});
+</script>
+{% endblock %}

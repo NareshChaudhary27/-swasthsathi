@@ -1,0 +1,32 @@
+.testimonials-slider {
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 1rem auto;
+  padding: 2rem;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.faq-question:focus {
+  outline: none;
+}
+
+.faq-answer {
+  transition: all 0.3s ease-in-out;
+}

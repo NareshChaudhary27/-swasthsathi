@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Our Health Insurance Plans</h1>
+        
+        <!-- Basic Plans -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Basic Plans</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {% for plan in plans.basic %}
+                <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
+                    <div class="px-6 py-4">
+                        <h3 class="text-lg font-medium text-gray-900">{{ plan.name }}</h3>
+                        <p class="mt-1 text-3xl font-semibold text-blue-600">
+                            {{ format_currency(plan.monthly_premium) }}/month
+                        </p>
+                        <p class="mt-1 text-sm text-gray-500">Coverage up to {{ format_currency(plan.coverage) }}</p>
+                    </div>
+                    <div class="px-6 py-4">
+                        <ul class="mt-4 space-y-2">
+                            {% for feature in plan.features %}
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="ml-2 text-sm text-gray-600">{{ feature }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4">
+                        <p class="text-sm text-gray-600">Best for: {{ plan.suitable_for }}</p>
+                        <p class="text-sm text-gray-600 mt-2">Waiting period: {{ plan.waiting_period }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Standard Plans -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Standard Plans</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {% for plan in plans.standard %}
+                <!-- Same card structure as Basic Plans -->
+                <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
+                    <div class="px-6 py-4">
+                        <h3 class="text-lg font-medium text-gray-900">{{ plan.name }}</h3>
+                        <p class="mt-1 text-3xl font-semibold text-blue-600">
+                            {{ format_currency(plan.monthly_premium) }}/month
+                        </p>
+                        <p class="mt-1 text-sm text-gray-500">Coverage up to {{ format_currency(plan.coverage) }}</p>
+                    </div>
+                    <div class="px-6 py-4">
+                        <ul class="mt-4 space-y-2">
+                            {% for feature in plan.features %}
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="ml-2 text-sm text-gray-600">{{ feature }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4">
+                        <p class="text-sm text-gray-600">Best for: {{ plan.suitable_for }}</p>
+                        <p class="text-sm text-gray-600 mt-2">Waiting period: {{ plan.waiting_period }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Premium Plans -->
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Premium Plans</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {% for plan in plans.premium %}
+                <!-- Same card structure as Basic Plans -->
+                <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
+                    <div class="px-6 py-4">
+                        <h3 class="text-lg font-medium text-gray-900">{{ plan.name }}</h3>
+                        <p class="mt-1 text-3xl font-semibold text-blue-600">
+                            {{ format_currency(plan.monthly_premium) }}/month
+                        </p>
+                        <p class="mt-1 text-sm text-gray-500">Coverage up to {{ format_currency(plan.coverage) }}</p>
+                    </div>
+                    <div class="px-6 py-4">
+                        <ul class="mt-4 space-y-2">
+                            {% for feature in plan.features %}
+                            <li class="flex items-center">
+                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="ml-2 text-sm text-gray-600">{{ feature }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="px-6 py-4">
+                        <p class="text-sm text-gray-600">Best for: {{ plan.suitable_for }}</p>
+                        <p class="text-sm text-gray-600 mt-2">Waiting period: {{ plan.waiting_period }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
