@@ -3,7 +3,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import json
-import google.generativeai as genai
+from google import genai
 import asyncio
 
 app = Flask(__name__)
@@ -115,7 +115,15 @@ def get_ai_health_feedback(profile_data):
         model = genai.GenerativeModel("gemini-2.0-flash")
         response = model.generate_content(prompt)
         
-        return response.text
+        # Clean up the response by removing markdown code block markers
+        feedback = response.text
+        if feedback.startswith('```html'):
+            feedback = feedback[7:]
+        if feedback.endswith('```'):
+            feedback = feedback[:-3]
+        feedback = feedback.strip()
+        
+        return feedback
     except Exception as e:
         return f"<h3>Health Recommendations</h3><p>We're currently unable to generate personalized recommendations. Please try again later.</p><p>Error: {str(e)}</p>"
 
@@ -220,12 +228,15 @@ def register():
         conn = get_db_connection()
         if conn.execute('SELECT id FROM users WHERE username = ?', (username,)).fetchone():
             flash('Username already exists')
-            conn.execute('INSERT INTO users (username, password) VALUES (?, ?)',
-                        (username, generate_password_hash(password)))
-            conn.commit()
-            flash('Registration successful! Please login.')
-            return redirect(url_for('login'))
+            conn.close()
+            return render_template('register.html')
+        # Only insert if username does not exist
+        conn.execute('INSERT INTO users (username, password) VALUES (?, ?)',
+                    (username, generate_password_hash(password)))
+        conn.commit()
         conn.close()
+        flash('Registration successful! Please login.')
+        return redirect(url_for('login'))
     return render_template('register.html')
 
 @app.route('/logout')
