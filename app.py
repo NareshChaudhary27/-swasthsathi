@@ -3,7 +3,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import json
-from google import genai
+import google.generativeai as genai
 import asyncio
 
 app = Flask(__name__)
