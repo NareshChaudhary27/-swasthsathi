@@ -1,37 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="min-h-screen bg-gray-100 py-12">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">Our Health Insurance Plans</h1>
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4 font-serif">Our Health Insurance Plans</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Choose from our range of comprehensive health insurance plans designed to protect you and your loved ones</p>
+        </div>
         
         <!-- Basic Plans -->
-        <div class="mb-12">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Basic Plans</h2>
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 font-serif">Basic Plans</h2>
+                <div class="flex items-center text-blue-600">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <span>Essential Coverage</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {% for plan in plans.basic %}
-                <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
-                    <div class="px-6 py-4">
-                        <h3 class="text-lg font-medium text-gray-900">{{ plan.name }}</h3>
-                        <p class="mt-1 text-3xl font-semibold text-blue-600">
-                            {{ format_currency(plan.monthly_premium) }}/month
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="px-6 py-6 bg-gradient-to-r from-blue-50 to-blue-100">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ plan.name }}</h3>
+                        <p class="text-4xl font-bold text-blue-600 mb-2">
+                            {{ format_currency(plan.monthly_premium) }}<span class="text-lg font-normal">/month</span>
                         </p>
-                        <p class="mt-1 text-sm text-gray-500">Coverage up to {{ format_currency(plan.coverage) }}</p>
+                        <p class="text-sm text-gray-600">Coverage up to {{ format_currency(plan.coverage) }}</p>
                     </div>
-                    <div class="px-6 py-4">
-                        <ul class="mt-4 space-y-2">
+                    <div class="px-6 py-6">
+                        <ul class="space-y-3">
                             {% for feature in plan.features %}
-                            <li class="flex items-center">
-                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-green-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span class="ml-2 text-sm text-gray-600">{{ feature }}</span>
+                                <span class="ml-3 text-gray-700">{{ feature }}</span>
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
-                    <div class="px-6 py-4">
-                        <p class="text-sm text-gray-600">Best for: {{ plan.suitable_for }}</p>
-                        <p class="text-sm text-gray-600 mt-2">Waiting period: {{ plan.waiting_period }}</p>
+                    <div class="px-6 py-4 bg-gray-50">
+                        <div class="flex items-center text-sm text-gray-600 mb-2">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Best for: {{ plan.suitable_for }}
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Waiting period: {{ plan.waiting_period }}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -39,34 +60,51 @@
         </div>
 
         <!-- Standard Plans -->
-        <div class="mb-12">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Standard Plans</h2>
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 font-serif">Standard Plans</h2>
+                <div class="flex items-center text-blue-600">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <span>Enhanced Coverage</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {% for plan in plans.standard %}
-                <!-- Same card structure as Basic Plans -->
-                <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
-                    <div class="px-6 py-4">
-                        <h3 class="text-lg font-medium text-gray-900">{{ plan.name }}</h3>
-                        <p class="mt-1 text-3xl font-semibold text-blue-600">
-                            {{ format_currency(plan.monthly_premium) }}/month
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="px-6 py-6 bg-gradient-to-r from-teal-50 to-teal-100">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ plan.name }}</h3>
+                        <p class="text-4xl font-bold text-teal-600 mb-2">
+                            {{ format_currency(plan.monthly_premium) }}<span class="text-lg font-normal">/month</span>
                         </p>
-                        <p class="mt-1 text-sm text-gray-500">Coverage up to {{ format_currency(plan.coverage) }}</p>
+                        <p class="text-sm text-gray-600">Coverage up to {{ format_currency(plan.coverage) }}</p>
                     </div>
-                    <div class="px-6 py-4">
-                        <ul class="mt-4 space-y-2">
+                    <div class="px-6 py-6">
+                        <ul class="space-y-3">
                             {% for feature in plan.features %}
-                            <li class="flex items-center">
-                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-green-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span class="ml-2 text-sm text-gray-600">{{ feature }}</span>
+                                <span class="ml-3 text-gray-700">{{ feature }}</span>
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
-                    <div class="px-6 py-4">
-                        <p class="text-sm text-gray-600">Best for: {{ plan.suitable_for }}</p>
-                        <p class="text-sm text-gray-600 mt-2">Waiting period: {{ plan.waiting_period }}</p>
+                    <div class="px-6 py-4 bg-gray-50">
+                        <div class="flex items-center text-sm text-gray-600 mb-2">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Best for: {{ plan.suitable_for }}
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Waiting period: {{ plan.waiting_period }}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -75,33 +113,50 @@
 
         <!-- Premium Plans -->
         <div>
-            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Premium Plans</h2>
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 font-serif">Premium Plans</h2>
+                <div class="flex items-center text-blue-600">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <span>Comprehensive Coverage</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {% for plan in plans.premium %}
-                <!-- Same card structure as Basic Plans -->
-                <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
-                    <div class="px-6 py-4">
-                        <h3 class="text-lg font-medium text-gray-900">{{ plan.name }}</h3>
-                        <p class="mt-1 text-3xl font-semibold text-blue-600">
-                            {{ format_currency(plan.monthly_premium) }}/month
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="px-6 py-6 bg-gradient-to-r from-purple-50 to-purple-100">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ plan.name }}</h3>
+                        <p class="text-4xl font-bold text-purple-600 mb-2">
+                            {{ format_currency(plan.monthly_premium) }}<span class="text-lg font-normal">/month</span>
                         </p>
-                        <p class="mt-1 text-sm text-gray-500">Coverage up to {{ format_currency(plan.coverage) }}</p>
+                        <p class="text-sm text-gray-600">Coverage up to {{ format_currency(plan.coverage) }}</p>
                     </div>
-                    <div class="px-6 py-4">
-                        <ul class="mt-4 space-y-2">
+                    <div class="px-6 py-6">
+                        <ul class="space-y-3">
                             {% for feature in plan.features %}
-                            <li class="flex items-center">
-                                <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-green-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span class="ml-2 text-sm text-gray-600">{{ feature }}</span>
+                                <span class="ml-3 text-gray-700">{{ feature }}</span>
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
-                    <div class="px-6 py-4">
-                        <p class="text-sm text-gray-600">Best for: {{ plan.suitable_for }}</p>
-                        <p class="text-sm text-gray-600 mt-2">Waiting period: {{ plan.waiting_period }}</p>
+                    <div class="px-6 py-4 bg-gray-50">
+                        <div class="flex items-center text-sm text-gray-600 mb-2">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Best for: {{ plan.suitable_for }}
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Waiting period: {{ plan.waiting_period }}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
