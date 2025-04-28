@@ -109,7 +109,7 @@ def get_ai_health_feedback(profile_data):
         4. Preventive health measures
         5. Stress management techniques
        
-        Format the response in HTML with appropriate headings and bullet points and don't use any bold words.
+        Format the response in HTML with appropriate headings and bullet points and if you going to bold words generate according to html page.
         Avoid using any code block markers in the response.
         """
         
