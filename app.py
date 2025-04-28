@@ -109,7 +109,8 @@ def get_ai_health_feedback(profile_data):
         4. Preventive health measures
         5. Stress management techniques
        
-        Format the response in HTML with appropriate headings and bullet points.
+        Format the response in HTML with appropriate headings and bullet points and don't use any bold words.
+        Avoid using any code block markers in the response.
         """
         
         model = genai.GenerativeModel("gemini-2.0-flash")
